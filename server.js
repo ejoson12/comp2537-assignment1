@@ -1,30 +1,21 @@
 // Load the necessary modules
 const express = require('express');
 const session = require('express-session');
-const mongoose = require('mongoose');
+
 const port = process.env.PORT || 3000;
 
 // Load the user model
-//const User = require('./models/user');
-
-// Connect to the MongoDB database
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+const User = require('./models/user');
 
 // Create an Express app
 const app = express();
 
 // Set up session middleware
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: `${process.env.NODE_SESSION_SECRET}`,
     resave: false,
-    saveUninitialized: true,
-}));
-
-// Set up middleware to parse the request body
-app.use(express.urlencoded({ extended: true }));
-
-// Set up middleware to serve static files
-app.use(express.static('public'));
+    saveUninitialized: false,
+  }));
 
 // Set up middleware to store the user's name in the session
 app.use((req, res, next) => {
@@ -43,6 +34,7 @@ app.get('/', (req, res) => {
     }
 });
 
+//Logout page
 app.get('/logout', (req, res) => {
     req.session.destroy(() => {
       res.redirect('/');
