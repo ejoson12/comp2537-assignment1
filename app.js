@@ -188,19 +188,6 @@ app.get('*', (req, res) => {
 
 main().catch(err => console.log(err));
 
-/* async function main() {
-  try {
-    await mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.lletqsu.mongodb.net/?retryWrites=true&w=majority`);
-
-    console.log("connected to db");
-    app.listen(process.env.PORT || 3000, () => {
-      console.log('server is running on port 3000');
-    });
-  } catch (err) {
-    console.error("Error connecting to db:", err.message);
-  }
-} */
-
 async function main() {
   app.listen(process.env.PORT || 3000, () => {
     console.log('server is running on port 3000');
